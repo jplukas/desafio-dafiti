@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="col-md-8">
+      <article class="blog-post">
+        <h2 class="blog-post-title">{{ post.title }}</h2>
+        <p class="blog-post-meta">{{ post.created_at }} by <a href="{% url 'user_posts' post.author.id %}">{{ post.author.get_full_name }}</a></p>
+        {{ post.content|safe }}
+      </article><!-- /.blog-post -->
+
+      <nav class="blog-pagination" aria-label="Pagination">
+        <a class="btn btn-outline-primary" href="#">Older</a>
+        <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>
+      </nav>
+
+    </div>
+{% endblock content %}
