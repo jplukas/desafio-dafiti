@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
-from . import models
+from . import models, forms
+from django.urls import reverse
 
 class index(View):
     def get(self, request):
@@ -18,3 +19,25 @@ def user_posts(request, id):
     user = models.User.objects.get(pk=id)
     return render(request, 'index.html', {'posts' : posts, 'user_page' : user})
     
+class new_post(View):
+    def get(self, request):
+        form = forms.PostForm()
+        return render(request, 'edit_post.html', {'form' : form, 'action' : 'new'})
+
+    def post(self, request):
+        form = forms.PostForm(request.POST)
+        new_post_instance = form.save()
+        return HttpResponseRedirect(reverse('post_detail', args=(new_post_instance.id,)))
+
+
+class edit_post(View):
+    def get(self, request, id):
+        post = models.Post.objects.get(pk=id)
+        form = forms.PostForm(instance=post)
+        return render(request, 'edit_post.html', {'form' : form, 'action' : 'edit'})
+
+    def post(self, request, id):
+        post = models.Post.objects.get(pk=id)
+        form = forms.PostForm(request.POST, instance=post)
+        form.save()
+        return HttpResponseRedirect(reverse('post_detail', args=(id,)))

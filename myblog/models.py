@@ -8,5 +8,5 @@ class Post(models.Model):
     summary = ckfields.RichTextField()
     content = ckupload_fields.RichTextUploadingField()
     author = models.ForeignKey(User, on_delete=models.PROTECT)
-    created_at = models.DateField(auto_now_add=True)
-    last_updated = models.DateField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_updated = models.DateTimeField(auto_now=True)
