@@ -16,5 +16,5 @@ class detail(View):
 def user_posts(request, id):
     posts = models.Post.objects.filter(author=id).order_by('-created_at')
     user = models.User.objects.get(pk=id)
-    return render(request, 'index.html', {'posts' : posts, 'user' : user})
+    return render(request, 'index.html', {'posts' : posts, 'user_page' : user})
     
