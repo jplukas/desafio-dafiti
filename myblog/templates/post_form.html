@@ -3,7 +3,7 @@
 {% block content %}
 <div class="col-md-8">
       <article class="blog-post">
-      <h2 class="blog-post-title">Editar post</h2>
+      <h2 class="blog-post-title">{{ header }}</h2>
        <form method='POST' action='{{ action }}'>
        {% csrf_token %}
        {{form.media}}

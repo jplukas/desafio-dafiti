@@ -24,7 +24,7 @@ class UserPosts(View):
 class NewPost(View):
     def get(self, request):
         form = PostForm()
-        return render(request, 'edit_post.html', {'form' : form, 'action' : 'new'})
+        return render(request, 'post_form.html', {'form' : form, 'action' : 'new', 'header' : 'Novo Post'})
 
     def post(self, request):
         form = PostForm(request.POST)
@@ -36,7 +36,7 @@ class EditPost(View):
     def get(self, request, id):
         post = Post.objects.get(pk=id)
         form = PostForm(instance=post)
-        return render(request, 'edit_post.html', {'form' : form, 'action' : 'edit'})
+        return render(request, 'post_form.html', {'form' : form, 'action' : 'edit', 'header' : 'Novo Post'})
 
     def post(self, request, id):
         post = Post.objects.get(pk=id)
