@@ -46,16 +46,22 @@
 {% block content %}
 <div class="col-md-8">
     <h3 class="pb-4 mb-4 fst-italic border-bottom">
-        {% if user %}
-        Posts do usuário <a href="{% url 'user_posts' user.id %}">{{ user.get_full_name }}</a>:
+        {% if user_page %}
+        Posts do usuário <a href="{% url 'user_posts' user_page.id %}">{{ user_page.get_full_name }}</a>:
         {% else %}
         Latest entries:
         {% endif %}
     </h3>
+      <a href="{% url 'new_post' %}">Novo post</a>
+      {% if not posts %}
+      <h1>Não foram encontrados posts.</h1>
+      {% endif %}
       {% for post in posts %}
       <article class="blog-post">
         <h2 class="blog-post-title"><a href = "{% url 'post_detail' post.id %}" >{{ post.title }}</a></h2>
-        <p class="blog-post-meta">{{ post.created_at }} by <a href="{% url 'user_posts' post.author.id %}">{{ post.author.get_full_name }}</a></p>
+        {% with wc=post.content|striptags|wordcount %}
+        <p class="blog-post-meta">{{ post.updated_at }} by <a href="{% url 'user_posts' post.author.id %}">{{ post.author.get_full_name }}</a> ({{wc}} word{{wc|pluralize}})
+        {% endwith %}</p>
         {{ post.summary|safe }}
       </article><!-- /.blog-post -->
       {% endfor %}
