@@ -1,13 +1,15 @@
 {% extends 'layout.html' %}
-
+{% load blog_extratags %}
 {% block content %}
 <div class="col-md-8">
       <article class="blog-post">
         <h2 class="blog-post-title">{{ post.title }}</h2>
         {% with wc=post.content|striptags|wordcount %}
-        <p class="blog-post-meta">{{ post.updated_at }} by <a href="{% url 'user_posts' post.author.id %}">{{ post.author.get_full_name }}</a> ({{wc}} word{{wc|pluralize}}) <a href="{% url 'edit_post' post.id %}">(editar)</a></p>
-        {{ post.content|safe }}
+        {% with reading_time=wc|intdiv:wpm %}
+        <p class="blog-post-meta">{{ post.updated_at }} by <a href="{% url 'user_posts' post.author.id %}">{{ post.author.get_full_name }}</a> ({{wc}} word{{wc|pluralize}}) ({{reading_time}} minute{{reading_time|pluralize}})</p>
         {% endwith %}
+        {% endwith %}
+        {{ post.content|safe }}
       </article><!-- /.blog-post -->
 
       <nav class="blog-pagination" aria-label="Pagination">
