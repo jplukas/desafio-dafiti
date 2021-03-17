@@ -6,7 +6,7 @@
         <h2 class="blog-post-title">{{ post.title }}</h2>
         {% with wc=post.content|striptags|wordcount %}
         {% with reading_time=wc|intdiv:wpm %}
-        <p class="blog-post-meta">{{ post.updated_at }} by <a href="{% url 'user_posts' post.author.id %}">{{ post.author.get_full_name }}</a> ({{wc}} word{{wc|pluralize}}) ({{reading_time}} minute{{reading_time|pluralize}})</p>
+        <p class="blog-post-meta">{{ post.updated_at }} by <a href="{% url 'user_posts' post.author.id %}">{{ post.author.get_full_name }}</a> ({{wc}} word{{wc|pluralize}}, {{reading_time}} minute{{reading_time|pluralize}})(<a href="{% url 'edit_post' post.id %}">editar</a>)</p>
         {% endwith %}
         {% endwith %}
         {{ post.content|safe }}
