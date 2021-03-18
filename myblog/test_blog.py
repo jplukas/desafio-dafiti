@@ -1,5 +1,5 @@
 # from django.test import TestCase
-from myblog.templatetags.blog_extratags import intdiv
+from .templatetags.blog_extratags import intdiv
 import pytest
 
 # Create your tests here.
