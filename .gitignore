@@ -1,6 +1,7 @@
 __pycache__/
 *.py[cod]
 .code/
+.vscode/
 db.sqlite3
 media/
 uploads/
