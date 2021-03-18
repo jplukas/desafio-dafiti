@@ -1,5 +1,7 @@
 {% extends 'layout.html' %}
 
+{% load blog_extratags %}
+
 {% block sub_header %}
 <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
     <div class="col-md-6 px-0">
@@ -56,11 +58,14 @@
       {% if not posts %}
       <h1>Não foram encontrados posts.</h1>
       {% endif %}
+      
       {% for post in posts %}
       <article class="blog-post">
         <h2 class="blog-post-title"><a href = "{% url 'post_detail' post.id %}" >{{ post.title }}</a></h2>
         {% with wc=post.content|striptags|wordcount %}
-        <p class="blog-post-meta">{{ post.updated_at }} by <a href="{% url 'user_posts' post.author.id %}">{{ post.author.get_full_name }}</a> ({{wc}} word{{wc|pluralize}})
+        {% with reading_time=wc|intdiv:wpm %}
+        <p class="blog-post-meta">{{ post.updated_at }} by <a href="{% url 'user_posts' post.author.id %}">{{ post.author.get_full_name }}</a> ({{wc}} word{{wc|pluralize}}) ({{reading_time}} minute{{reading_time|pluralize}})
+        {% endwith %}
         {% endwith %}</p>
         {{ post.summary|safe }}
       </article><!-- /.blog-post -->

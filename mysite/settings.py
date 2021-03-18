@@ -135,4 +135,7 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-#Fixtures
+# Misc
+
+# Palavras por minuto. https://blogue.rbe.mec.pt/quantas-palavras-por-minuto-le-um-2282282#:~:text=Baseado%20em%20190%20estudos%2C%20em,entre%20175%20e%20300%20ppm.
+WORDS_PER_MINUTE = 150

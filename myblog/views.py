@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
+from django.conf import settings
 from .models import Post, User
 from .forms import PostForm
 from django.urls import reverse
@@ -8,18 +9,18 @@ from django.urls import reverse
 class Index(View):
     def get(self, request):
         posts = Post.objects.order_by('-updated_at')
-        return render(request, 'index.html', {'posts' : posts})
+        return render(request, 'index.html', {'posts' : posts, 'wpm' : settings.WORDS_PER_MINUTE})
 
 class Detail(View):
     def get(self, request, id):
         post = Post.objects.get(pk=id)
-        return render(request, 'post.html', {'post' : post})
+        return render(request, 'post.html', {'post' : post, 'wpm' : settings.WORDS_PER_MINUTE})
 
 class UserPosts(View):
     def get(self, request, id):
         posts = Post.objects.filter(author=id).order_by('-updated_at')
         user = User.objects.get(pk=id)
-        return render(request, 'index.html', {'posts' : posts, 'user_page' : user})
+        return render(request, 'index.html', {'posts' : posts, 'user_page' : user, 'wpm' : settings.WORDS_PER_MINUTE})
     
 class NewPost(View):
     def get(self, request):
