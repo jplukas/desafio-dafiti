@@ -2,14 +2,20 @@
 
 import ckeditor.fields
 import ckeditor_uploader.fields
+import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
-import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
 
-    replaces = [('myblog', '0001_initial'), ('myblog', '0002_auto_20210308_2159'), ('myblog', '0003_post_last_updated'), ('myblog', '0004_auto_20210311_1909'), ('myblog', '0005_auto_20210312_2139')]
+    replaces = [
+        ('myblog', '0001_initial'),
+        ('myblog', '0002_auto_20210308_2159'),
+        ('myblog', '0003_post_last_updated'),
+        ('myblog', '0004_auto_20210311_1909'),
+        ('myblog', '0005_auto_20210312_2139'),
+    ]
 
     initial = True
 
@@ -21,12 +27,26 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Post',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('title', models.CharField(max_length=255)),
                 ('summary', ckeditor.fields.RichTextField()),
                 ('content', ckeditor_uploader.fields.RichTextUploadingField()),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL)),
+                (
+                    'author',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
                 ('updated_at', models.DateTimeField(auto_now=True)),
             ],
         ),
