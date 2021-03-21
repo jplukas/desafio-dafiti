@@ -9,4 +9,4 @@ format:
 	@black -S -t py38 -l 79 mysite/ myblog --exclude '/(\.git|\.venv|env|venv|build|dist)/'
 
 test:
-	pytest
+	@pytest
