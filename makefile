@@ -1,5 +1,6 @@
 help:
 	@echo "Essa é uma mensagem de ajuda."
+	@echo "Teste"
 
 lint: 
 	@pylint mysite/ myblog/ --disable=C0115,C0116,C0114
