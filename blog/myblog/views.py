@@ -3,7 +3,6 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
-
 from myblog.forms import PostForm
 from myblog.models import Post, User
 

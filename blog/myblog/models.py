@@ -1,6 +1,6 @@
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.db.models import (
     PROTECT,
     CharField,
@@ -8,6 +8,8 @@ from django.db.models import (
     ForeignKey,
     Model,
 )
+
+User = get_user_model()
 
 
 class Post(Model):
