@@ -19,8 +19,8 @@ class Index(View):
 
 
 class Detail(View):
-    def get(self, request, id):
-        post = Post.objects.get(pk=id)
+    def get(self, request, pk):
+        post = Post.objects.get(pk=pk)
         return render(
             request,
             'post.html',
@@ -29,9 +29,9 @@ class Detail(View):
 
 
 class UserPosts(View):
-    def get(self, request, id):
-        posts = Post.objects.filter(author=id).order_by('-updated_at')
-        user = User.objects.get(pk=id)
+    def get(self, request, pk):
+        posts = Post.objects.filter(author=pk).order_by('-updated_at')
+        user = User.objects.get(pk=pk)
         return render(
             request,
             'index.html',
@@ -61,8 +61,8 @@ class NewPost(View):
 
 
 class EditPost(View):
-    def get(self, request, id):
-        post = Post.objects.get(pk=id)
+    def get(self, request, pk):
+        post = Post.objects.get(pk=pk)
         form = PostForm(instance=post)
         return render(
             request,
@@ -70,8 +70,8 @@ class EditPost(View):
             {'form': form, 'action': 'edit', 'header': 'Novo Post'},
         )
 
-    def post(self, request, id):
-        post = Post.objects.get(pk=id)
+    def post(self, request, pk):
+        post = Post.objects.get(pk=pk)
         form = PostForm(request.POST, instance=post)
         form.save()
-        return HttpResponseRedirect(reverse('post_detail', args=(id,)))
+        return HttpResponseRedirect(reverse('post_detail', args=(pk,)))
