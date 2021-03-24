@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
+
 from myblog.forms import PostForm
 from myblog.models import Post, User
 
@@ -13,7 +14,7 @@ class Index(View):
         return render(
             request,
             'index.html',
-            {'posts': posts, 'wpm': settings.WORDS_PER_MINUTE},
+            {'posts': posts, 'words_per_minute': settings.WORDS_PER_MINUTE},
         )
 
 
@@ -23,7 +24,7 @@ class Detail(View):
         return render(
             request,
             'post.html',
-            {'post': post, 'wpm': settings.WORDS_PER_MINUTE},
+            {'post': post, 'words_per_minute': settings.WORDS_PER_MINUTE},
         )
 
 
@@ -37,7 +38,7 @@ class UserPosts(View):
             {
                 'posts': posts,
                 'user_page': user,
-                'wpm': settings.WORDS_PER_MINUTE,
+                'words_per_minute': settings.WORDS_PER_MINUTE,
             },
         )
 
