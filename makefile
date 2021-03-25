@@ -5,8 +5,8 @@ lint: clean ## Roda o pylint
 	@pylint blog --load-plugins=pylint_django --rcfile=pyproject.toml
 
 format: ## Formata o código usando isort e black
-	@isort --settings-file=pyproject.toml blog
-	@black blog --config=project.toml
+	@isort blog --settings-file=pyproject.toml
+	@black blog --config=pyproject.toml
 
 test: clean ## Roda os testes 
 	@pytest -v

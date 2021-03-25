@@ -1,5 +1,3 @@
-from ckeditor.fields import RichTextField
-from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth import get_user_model
 from django.db.models import (
     PROTECT,
@@ -8,6 +6,9 @@ from django.db.models import (
     ForeignKey,
     Model,
 )
+
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 User = get_user_model()
 
