@@ -2,11 +2,11 @@ help: ## Mostra essa mensagem de ajuda
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
 
 lint: clean ## Roda o pylint
-	@pylint blog --load-plugins=pylint_django --rcfile=.pylintrc
+	@pylint blog --load-plugins=pylint_django --rcfile=pyproject.toml
 
 format: ## Formata o código usando isort e black
-	@isort --settings-file=.isort.cfg .
-	@black -S -t py38 -l 79 blog --exclude '/(\.git|\.venv|env|venv|build|dist)/'
+	@isort --settings-file=pyproject.toml blog
+	@black 
 
 test: clean ## Roda os testes 
 	@pytest -v
