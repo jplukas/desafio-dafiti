@@ -6,7 +6,7 @@ lint: clean ## Roda o pylint
 
 format: ## Formata o código usando isort e black
 	@isort --settings-file=pyproject.toml blog
-	@black 
+	@black blog --config=project.toml
 
 test: clean ## Roda os testes 
 	@pytest -v
