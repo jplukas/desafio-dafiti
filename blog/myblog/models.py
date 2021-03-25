@@ -6,11 +6,16 @@ from django.db.models import (
     ForeignKey,
     Model,
 )
+from django.db.models.fields.related import ManyToManyField
 
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 
 User = get_user_model()
+
+
+class Tag(Model):
+    name = CharField(max_length=31)
 
 
 class Post(Model):
@@ -20,3 +25,4 @@ class Post(Model):
     author = ForeignKey(User, on_delete=PROTECT)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
+    tags = ManyToManyField(Tag)
