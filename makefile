@@ -5,7 +5,7 @@ lint: clean ## Roda o pylint
 	@pylint blog --load-plugins=pylint_django --rcfile=.pylintrc
 
 format: ## Formata o código usando isort e black
-	@isort -m 3 --trailing-comma --use-parentheses --honor-noqa blog
+	@isort --settings-file=.isort.cfg .
 	@black -S -t py38 -l 79 blog --exclude '/(\.git|\.venv|env|venv|build|dist)/'
 
 test: clean ## Roda os testes 
