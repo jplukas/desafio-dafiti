@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
 
-from myblog.forms import PostForm
+from myblog.forms import PostForm, TagForm
 from myblog.models import Post, Tag, User
 
 
@@ -55,6 +55,23 @@ class IndexTag(View):
                 'tag': tag,
                 'words_per_minute': settings.WORDS_PER_MINUTE,
             },
+        )
+
+
+class NewTag(View):
+    def get(self, request):
+        form = TagForm()
+        return render(
+            request,
+            'create_tag.html',
+            {'form': form},
+        )
+
+    def post(self, request):
+        form = TagForm(request.POST)
+        new_tag_instance = form.save()
+        return HttpResponseRedirect(
+            reverse('index_tag', args=(new_tag_instance.id,))
         )
 
 
