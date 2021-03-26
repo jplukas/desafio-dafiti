@@ -43,7 +43,7 @@ class UserPosts(View):
         )
 
 
-class IndexTag(View):
+class DetailTag(View):
     def get(self, request, pk):
         tag = Tag.objects.get(pk=pk)
         posts = Post.objects.filter(tags__id=pk).order_by('-updated_at')
@@ -71,7 +71,7 @@ class NewTag(View):
         form = TagForm(request.POST)
         new_tag_instance = form.save()
         return HttpResponseRedirect(
-            reverse('index_tag', args=(new_tag_instance.id,))
+            reverse('DetailTag', args=(new_tag_instance.id,))
         )
 
 
