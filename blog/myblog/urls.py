@@ -17,5 +17,5 @@ urlpatterns = [
     path('posts/<int:pk>/edit', EditPost.as_view(), name='edit_post'),
     path('posts/new', NewPost.as_view(), name='new_post'),
     path('tags/new', NewTag.as_view(), name='new_tag'),
-    path('tags/<int:pk>/posts', DetailTag.as_view(), name='DetailTag'),
+    path('tags/<int:pk>', DetailTag.as_view(), name='DetailTag'),
 ]
