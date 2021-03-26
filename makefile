@@ -25,5 +25,8 @@ preparations: clean ## Pepara para rodar o servidor de desenvolvimento.
 run: clean ## Inicia o servidor de desenvolvimento. Precisa ter rodado make preparations uma vez antes
 	@python blog/manage.py runserver
 
+shell: ## Inicia um terminal interativo
+	@python blog/manage.py shell
+
 install-pip: ## Instala dependencias do pip
 	@pip install -r requirements.txt
