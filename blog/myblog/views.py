@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.views import View
 
 from myblog.forms import PostForm
-from myblog.models import Post, User
+from myblog.models import Post, Tag, User
 
 
 class Index(View):
@@ -38,6 +38,21 @@ class UserPosts(View):
             {
                 'posts': posts,
                 'user_page': user,
+                'words_per_minute': settings.WORDS_PER_MINUTE,
+            },
+        )
+
+
+class IndexTag(View):
+    def get(self, request, pk):
+        tag = Tag.objects.get(pk=pk)
+        posts = Post.objects.filter(tags__id=pk).order_by('-updated_at')
+        return render(
+            request,
+            'index.html',
+            {
+                'posts': posts,
+                'tag': tag,
                 'words_per_minute': settings.WORDS_PER_MINUTE,
             },
         )
