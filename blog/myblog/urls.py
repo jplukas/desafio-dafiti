@@ -5,6 +5,7 @@ from myblog.views import (
     DetailTag,
     EditPost,
     Index,
+    IndexTag,
     NewPost,
     NewTag,
     UserPosts,
@@ -18,4 +19,5 @@ urlpatterns = [
     path('posts/new', NewPost.as_view(), name='new_post'),
     path('tags/new', NewTag.as_view(), name='new_tag'),
     path('tags/<int:pk>', DetailTag.as_view(), name='DetailTag'),
+    path('tags/', IndexTag.as_view(), name='tag_index'),
 ]

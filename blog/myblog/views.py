@@ -43,6 +43,12 @@ class UserPosts(View):
         )
 
 
+class IndexTag(View):
+    def get(self, request):
+        tags = Tag.objects.all()
+        return render(request, 'index_tags.html', {'tags': tags})
+
+
 class DetailTag(View):
     def get(self, request, pk):
         tag = Tag.objects.get(pk=pk)
