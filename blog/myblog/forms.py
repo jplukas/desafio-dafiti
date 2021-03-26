@@ -1,9 +1,9 @@
-from django import forms
+from django.forms import ModelForm
 
 from myblog.models import Post
 
 
-class PostForm(forms.ModelForm):
+class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields = ['author', 'title', 'summary', 'content']
+        fields = ['author', 'title', 'summary', 'content', 'tags']
