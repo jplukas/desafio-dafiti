@@ -48,11 +48,14 @@
 {% block content %}
 <div class="col-md-8">
     <h3 class="pb-4 mb-4 fst-italic border-bottom">
-        {% if user_page %}
-        Posts do usuário <a href="{% url 'user_posts' user_page.id %}">{{ user_page.get_full_name }}</a>:
-        {% else %}
-        Latest entries:
-        {% endif %}
+       Últimos posts
+       {% if user_page %}
+       de {{ user_page.get_full_name }}
+       {% endif %}
+       {% if tags %}
+       com as tags: 
+       "{{ tags|join:'", "' }}"
+       {% endif %}
     </h3>
       <a href="{% url 'new_post' %}">Novo post</a>
       {% if not posts %}

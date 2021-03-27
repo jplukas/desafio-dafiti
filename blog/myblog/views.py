@@ -11,11 +11,21 @@ from myblog.models import Post, Tag, User
 
 class Index(View):
     def get(self, request):
+        tags = request.GET.getlist('tags')
         posts = Post.objects.order_by('-updated_at')
+        if tags:
+            posts = posts.filter(tags__in=tags)
+            tags = Tag.objects.filter(pk__in=tags).values_list(
+                'name', flat=True
+            )
         return render(
             request,
             'index.html',
-            {'posts': posts, 'words_per_minute': settings.WORDS_PER_MINUTE},
+            {
+                'posts': posts,
+                'words_per_minute': settings.WORDS_PER_MINUTE,
+                'tags': tags,
+            },
         )
 
 
@@ -48,21 +58,6 @@ class IndexTag(View):
     def get(self, request):
         tags = Tag.objects.all()
         return render(request, 'index_tags.html', {'tags': tags})
-
-
-class DetailTag(View):
-    def get(self, request, pk):
-        tag = Tag.objects.get(pk=pk)
-        posts = Post.objects.filter(tags__id=pk).order_by('-updated_at')
-        return render(
-            request,
-            'index.html',
-            {
-                'posts': posts,
-                'tag': tag,
-                'words_per_minute': settings.WORDS_PER_MINUTE,
-            },
-        )
 
 
 class NewTag(View):
