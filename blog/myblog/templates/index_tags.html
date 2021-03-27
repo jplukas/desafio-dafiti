@@ -56,7 +56,7 @@
       
       {% for tag in tags %}
       <article class="blog-post">
-        <h2 class="blog-post-title"><a href = "{% url 'home' %}?tags={{ tag.id }} " >{{ tag.name }}</a></h2>
+        <h2 class="blog-post-title"><a href = "{% url 'home' %}?tags={{ tag.name }} " >{{ tag.name }}</a></h2>
         {% with post_count=tag.post_set.count %}
         <p class="blog-post-meta"> ({{ post_count }} post{{ post_count|pluralize }})</p>
         {% endwith %}

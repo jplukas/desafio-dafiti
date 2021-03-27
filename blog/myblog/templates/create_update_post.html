@@ -51,7 +51,7 @@
         .then(data => {
           data.forEach(tag => {
               el = document.createElement('option');
-              el.value = tag['id'];
+              el.value = tag['name'];
               el.textContent = tag['name'];
               tag_select.appendChild(el);
           });   
