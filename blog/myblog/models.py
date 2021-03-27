@@ -15,7 +15,7 @@ User = get_user_model()
 
 
 class Tag(Model):
-    name = CharField(max_length=31)
+    name = CharField(max_length=31, primary_key=True)
 
     def __str__(self) -> str:
         return self.name
