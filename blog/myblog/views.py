@@ -92,11 +92,11 @@ class NewPost(View):
 class EditPost(View):
     def get(self, request, pk):
         post = Post.objects.get(pk=pk)
-        form = PostForm(instance=post)
+        forms = {'post': PostForm(instance=post), 'tag': TagForm()}
         return render(
             request,
             'create_update_post.html',
-            {'form': form, 'action': 'edit', 'header': 'Novo Post'},
+            {'forms': forms, 'action': 'edit', 'header': 'Editar Post'},
         )
 
     def post(self, request, pk):
