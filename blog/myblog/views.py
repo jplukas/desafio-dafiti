@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.http import HttpResponseRedirect
+from django.http.response import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
@@ -65,29 +66,19 @@ class DetailTag(View):
 
 
 class NewTag(View):
-    def get(self, request):
-        form = TagForm()
-        return render(
-            request,
-            'create_tag.html',
-            {'form': form},
-        )
-
     def post(self, request):
         form = TagForm(request.POST)
-        new_tag_instance = form.save()
-        return HttpResponseRedirect(
-            reverse('DetailTag', args=(new_tag_instance.id,))
-        )
+        form.save()
+        return JsonResponse(list(Tag.objects.all().values()), safe=False)
 
 
 class NewPost(View):
     def get(self, request):
-        form = PostForm()
+        forms = {'post': PostForm(), 'tag': TagForm()}
         return render(
             request,
             'create_update_post.html',
-            {'form': form, 'action': 'new', 'header': 'Novo Post'},
+            {'forms': forms, 'action': 'new', 'header': 'Novo Post'},
         )
 
     def post(self, request):

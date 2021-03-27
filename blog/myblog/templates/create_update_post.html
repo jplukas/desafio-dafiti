@@ -6,15 +6,58 @@
       <h2 class="blog-post-title">{{ header }}</h2>
        <form method='POST' action='{{ action }}'>
        {% csrf_token %}
-       {{form.media}}
-       {{form.as_p}}
+       {{ forms.post.media }}
+       {{ forms.post.as_p }}
        <input type='submit' value='Salvar'>
        </form>
-
-      <nav class="blog-pagination" aria-label="Pagination">
-        <a class="btn btn-outline-primary" href="#">Older</a>
-        <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>
-      </nav>
-
+       <div class="new_tag">
+          <span>
+            Nova tag
+          </span>
+          <form id='form_tag' method='POST' action="{% url 'new_tag' %}">
+            {% csrf_token %}
+            {{ forms.tag.media }}
+            {{ forms.tag }}
+          <input type='submit' value='Salvar'>
+          </form>
+        </div>
     </div>
+    <style>
+      .new_tag {
+        position: relative;
+        display: inline-block;
+        border: solid 2px black;
+        padding: 5px;
+        border-radius: 3px;
+        z-index: 1;
+        top: -140px;
+        left: 170px;
+        background-color: white;
+      }
+    </style>
+    <script>
+      document.querySelector('#form_tag').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+
+        tag_select = document.querySelector('#id_tags');
+        tag_select.innerHTML = '';
+
+        fetch("{% url 'new_tag' %}",{
+          method : 'POST',
+          body : formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          data.forEach(tag => {
+              el = document.createElement('option');
+              el.value = tag['id'];
+              el.textContent = tag['name'];
+              tag_select.appendChild(el);
+          });   
+        }).then( () => {
+          e.target.reset()
+        }).catch( err => console.error(err));
+      });
+    </script>
 {% endblock content %}
