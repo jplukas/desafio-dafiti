@@ -41,7 +41,13 @@ class Detail(View):
 
 class UserPosts(View):
     def get(self, request, pk):
+        tags = request.GET.getlist('tags')
         posts = Post.objects.filter(author=pk).order_by('-updated_at')
+        if tags:
+            posts = posts.filter(tags__in=tags)
+            tags = Tag.objects.filter(pk__in=tags).values_list(
+                'name', flat=True
+            )
         user = User.objects.get(pk=pk)
         return render(
             request,
@@ -50,6 +56,7 @@ class UserPosts(View):
                 'posts': posts,
                 'user_page': user,
                 'words_per_minute': settings.WORDS_PER_MINUTE,
+                'tags': tags,
             },
         )
 
