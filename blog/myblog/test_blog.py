@@ -20,7 +20,7 @@ def test_readtime(value, arg, result):
 
 
 @pytest.mark.django_db
-def test_me():
+def test_tag():
     tag = Tag.objects.create(name='teste')
     user = User.objects.create(username='jao')
     post = Post.objects.create(title='titulo', author=user)
