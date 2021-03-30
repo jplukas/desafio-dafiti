@@ -71,7 +71,9 @@ class NewTag(View):
     def post(self, request):
         form = TagForm(request.POST)
         form.save()
-        return JsonResponse(list(Tag.objects.all().values()), safe=False)
+        return JsonResponse(
+            list(Tag.objects.all().values()), safe=False, status=201
+        )
 
 
 class NewPost(View):

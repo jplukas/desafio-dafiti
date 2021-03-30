@@ -36,3 +36,7 @@
     target-version=['py38']
     line-length=79
     exclude='/(\.git|\.venv|env|venv|build|dist)/'
+
+[tool.pytest.ini_options]
+    DJANGO_SETTINGS_MODULE='mysite.settings'
+    addopts = '--strict-markers'
