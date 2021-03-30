@@ -9,7 +9,7 @@ format: ## Formata o código usando isort e black
 	@black blog --config=pyproject.toml
 
 test: clean ## Roda os testes 
-	@pytest -v
+	@pytest -v blog
 
 clean: ## Exclui arquivos de cache
 	@echo "Excluindo arquivos de cache"
