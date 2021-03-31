@@ -9,7 +9,7 @@ format: ## Formata o código usando isort e black
 	@black blog --config=pyproject.toml
 
 test: clean ## Roda os testes 
-	@pytest -v
+	@pytest -v blog
 
 clean: ## Exclui arquivos de cache
 	@echo "Excluindo arquivos de cache"
@@ -24,6 +24,9 @@ preparations: clean ## Pepara para rodar o servidor de desenvolvimento.
 
 run: clean ## Inicia o servidor de desenvolvimento. Precisa ter rodado make preparations uma vez antes
 	@python blog/manage.py runserver
+
+shell: ## Inicia um terminal interativo
+	@python blog/manage.py shell
 
 install-pip: ## Instala dependencias do pip
 	@pip install -r requirements.txt

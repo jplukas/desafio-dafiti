@@ -48,29 +48,18 @@
 {% block content %}
 <div class="col-md-8">
     <h3 class="pb-4 mb-4 fst-italic border-bottom">
-       Últimos posts
-       {% if user_page %}
-       de {{ user_page.get_full_name }}
-       {% endif %}
-       {% if tags %}
-       com as tags: 
-       "{{ tags|join:'", "' }}"
-       {% endif %}
+        Todas as tags
     </h3>
-      <a href="{% url 'new_post' %}">Novo post</a>
-      {% if not posts %}
+      {% if not tags %}
       <h1>Não foram encontrados posts.</h1>
       {% endif %}
       
-      {% for post in posts %}
+      {% for tag in tags %}
       <article class="blog-post">
-        <h2 class="blog-post-title"><a href = "{% url 'post_detail' post.id %}" >{{ post.title }}</a></h2>
-        {% with wc=post.content|striptags|wordcount %}
-        {% with reading_time=wc|intdiv:words_per_minute %}
-        <p class="blog-post-meta">{{ post.updated_at }} by <a href="{% url 'user_posts' post.author.id %}">{{ post.author.get_full_name }}</a> ({{wc}} word{{wc|pluralize}}) ({{reading_time}} minute{{reading_time|pluralize}})
+        <h2 class="blog-post-title"><a href = "{% url 'home' %}?tags={{ tag.name }} " >{{ tag.name }}</a></h2>
+        {% with post_count=tag.post_set.count %}
+        <p class="blog-post-meta"> ({{ post_count }} post{{ post_count|pluralize }})</p>
         {% endwith %}
-        {% endwith %}</p>
-        {{ post.summary|safe }}
       </article><!-- /.blog-post -->
       {% endfor %}
     </div>
