@@ -18,8 +18,10 @@ clean: ## Exclui arquivos de cache
 	@find . -name "__pycache__" -type d | xargs rm -rf
 	@rm -fr .pytest_cache/
 
-preparations: clean ## Pepara para rodar o servidor de desenvolvimento.
+preparations: docker-compose-up ## Pepara para rodar o servidor de desenvolvimento.
 	@python blog/manage.py migrate
+
+load-data: ## Carrega dados de teste no banco de dados
 	@python blog/manage.py loaddata fixtures.json
 
 run: clean ## Inicia o servidor de desenvolvimento. Precisa ter rodado make preparations uma vez antes
@@ -30,3 +32,9 @@ shell: ## Inicia um terminal interativo
 
 install-pip: ## Instala dependencias do pip
 	@pip install -r requirements.txt
+
+docker-compose-up: clean ## Up docker-compose for development
+	@docker-compose up -d
+
+docker-compose-stop: clean ## Stop docker-compose for development
+	@docker-compose stop
