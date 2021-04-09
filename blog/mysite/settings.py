@@ -26,7 +26,7 @@ SECRET_KEY = ')w8^%znyctj9xih8ht6c4upg0a^-h68u+-u5@%ywzt$0g@a$em'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'blog',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'HOST': 'myblog-db',
         'PORT': '5432',
     }
 }

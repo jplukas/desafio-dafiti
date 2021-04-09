@@ -1,13 +1,29 @@
 version: '3'
 services:
-  postgresql:
+  myblog-db:
     image: postgres:13.2
-    container_name: postgres-blog
-    network_mode: bridge
-    ports:
-      - 5432:5432/tcp
+    container_name: myblog-db
+    networks: 
+      - minhanet
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=blog
       - TZ=Etc/UTC
+
+  myblog:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    image: myblog
+    container_name: myblog
+    ports:
+      - "80:8000"
+    networks: 
+     - minhanet
+    depends_on: 
+     - myblog-db
+
+networks: 
+  minhanet:
+    driver: bridge
