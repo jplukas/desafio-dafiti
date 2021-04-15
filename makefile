@@ -30,8 +30,11 @@ run: clean ## Inicia o servidor de desenvolvimento. Precisa ter rodado make prep
 shell: ## Inicia um terminal interativo
 	@python blog/manage.py shell
 
-install-pip: ## Instala dependencias do pip
-	@pip install -r requirements.txt
+install-python: ## Instala dependencias do python
+	@poetry install --no-root --no-dev
+
+install-python-dev: ## Instala dependencias de dev do python
+	@poetry install --no-root
 
 docker-compose-up: clean ## Up docker-compose for development
 	@docker-compose up -d

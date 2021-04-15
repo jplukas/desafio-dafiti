@@ -1,6 +1,8 @@
 # README
 Esse repositório é um desafio de django para a criação de um Blog.
 
+Este projeto usa o poetry(https://github.com/python-poetry/poetry) como gerenciador de dependências
+
 ## TODO: 
 - ~~Criar funcionalidade: criação de tags~~
 - ~~Criar funcionalidade: mostrar lista de tags~~
