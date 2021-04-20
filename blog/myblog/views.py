@@ -114,10 +114,13 @@ class EditPost(View):
 class SearchView(View):
     def get(self, request):
         search_query = request.GET.get('search_query')
+        title_contains = Q(title__icontains=search_query)
+        summary_contains = Q(summary__icontains=search_query)
+        content_contains = Q(content__icontains=search_query)
         posts_content = Post.objects.filter(
-            Q(title__icontains=search_query) |
-            Q(summary__icontains=search_query) |
-            Q(content__icontains=search_query)
+            title_contains|
+            summary_contains|
+            content_contains
         ).order_by('-updated_at')
         posts_tags = Post.objects.filter(tags__name__icontains=search_query)
         return render(request, 'search.html', {
