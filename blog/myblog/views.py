@@ -1,9 +1,11 @@
 from django.conf import settings
+from django.db.models.query_utils import select_related_descend
 from django.http import HttpResponseRedirect
 from django.http.response import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
+from django.db.models import Q
 
 from myblog.forms import PostForm, TagForm
 from myblog.models import Post, Tag, User
@@ -108,3 +110,22 @@ class EditPost(View):
         form = PostForm(request.POST, instance=post)
         form.save()
         return HttpResponseRedirect(reverse('post_detail', args=(pk,)))
+
+class SearchView(View):
+    def get(self, request):
+        search_query = request.GET.get('search_query')
+        title_contains = Q(title__icontains=search_query)
+        summary_contains = Q(summary__icontains=search_query)
+        content_contains = Q(content__icontains=search_query)
+        posts_content = Post.objects.filter(
+            title_contains|
+            summary_contains|
+            content_contains
+        ).order_by('-updated_at')
+        posts_tags = Post.objects.filter(tags__name__icontains=search_query)
+        return render(request, 'search.html', {
+                'posts_content': posts_content,
+                'posts_tags': posts_tags,
+                'words_per_minute': settings.WORDS_PER_MINUTE,
+                'search_query' : search_query,
+            })

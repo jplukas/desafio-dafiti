@@ -1,0 +1,47 @@
+{% extends 'sub_header.html' %}
+
+{% load blog_extratags %}
+
+{% block content %}
+<div class="col-md-8">
+    <h2 class="pb-4 mb-4 fst-italic border-bottom">
+       Resultados da pesquisa:
+    </h2>
+    <h3 class="pb-4 mb-4 fst-italic border-bottom">
+       Posts contendo "{{ search_query }}":
+    </h3>
+      {% if not posts_content %}
+      <h1>Não foram encontrados posts.</h1>
+      {% endif %}
+      
+      {% for post in posts_content %}
+      <article class="blog-post">
+        <h2 class="blog-post-title"><a href = "{% url 'post_detail' post.id %}" >{{ post.title }}</a></h2>
+        {% with wc=post.content|striptags|wordcount %}
+        {% with reading_time=wc|intdiv:words_per_minute %}
+        <p class="blog-post-meta">{{ post.updated_at }} by <a href="{% url 'user_posts' post.author.id %}">{{ post.author.get_full_name }}</a> ({{wc}} word{{wc|pluralize}}) ({{reading_time}} minute{{reading_time|pluralize}})
+        {% endwith %}
+        {% endwith %}</p>
+        {{ post.summary|safe }}
+      </article><!-- /.blog-post -->
+      {% endfor %}
+    <h3 class="pb-4 mb-4 fst-italic border-bottom">
+        Posts com tags contendo "{{ search_query }}":
+    </h3>
+    {% if not posts_tags %}
+      <h1>Não foram encontrados posts.</h1>
+      {% endif %}
+     {% for post in posts_tags %}
+      <article class="blog-post">
+        <h2 class="blog-post-title"><a href = "{% url 'post_detail' post.id %}" >{{ post.title }}</a></h2>
+        {% with wc=post.content|striptags|wordcount %}
+        {% with reading_time=wc|intdiv:words_per_minute %}
+        <p class="blog-post-meta">{{ post.updated_at }} by <a href="{% url 'user_posts' post.author.id %}">{{ post.author.get_full_name }}</a> ({{wc}} word{{wc|pluralize}}) ({{reading_time}} minute{{reading_time|pluralize}})
+        {% endwith %}
+        {% endwith %}</p>
+        {{ post.summary|safe }}
+      </article><!-- /.blog-post -->
+      {% endfor %}
+      <a href="{% url 'new_post' %}">Novo post</a>
+    </div>
+{% endblock content %}
